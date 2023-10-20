@@ -2,11 +2,12 @@ import io
 
 import streamlit as st
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
     [
         "Single VTT",
         "Single SRT",
         "Multiple",
+        "Single raw string",
         "Single BytesIO",
         "All supprted formats",
         "YouTube",
@@ -37,10 +38,30 @@ with tab3:
         )
 
 with tab4:
+    st.header("Raw string")
+    with st.echo():
+        vtt = """
+        WEBVTT FILE
+
+        1
+        00:00:03.500 --> 00:00:05.000 D:vertical A:start
+        Jeder möchte das Meiste aus dem Leben herausholen
+
+        2
+        00:00:06.000 --> 00:00:09.000 A:start
+        Wie Internet-Erlebnisse, die reichhaltig <b>und</b> unterhaltsam sind
+
+        3
+        00:00:11.000 --> 00:00:14.000 A:end
+        Telefongespräche, bei denen Menschen wirklich <c.highlight>verbinden</c>
+        """
+        st.video("sample.mp4", subtitles=vtt)
+
+with tab5:
     st.header("One subtitle in SRT format (and BytesIO)")
     with st.echo():
         srt = io.BytesIO(
-    """
+            """
 1
 00:00:03,500 --> 00:00:05,000
 Everyone wants the most from life
@@ -57,9 +78,9 @@ Phone conversations where people truly connect
 00:00:14,500 --> 00:00:18,000
 Your favourite TV programmes ready to watch at the touch of a button
 """.strip().encode(
-        "utf-8"
-    )
-)
+                "utf-8"
+            )
+        )
 
         st.video("sample.mp4", subtitles=srt)
 
@@ -67,11 +88,11 @@ Your favourite TV programmes ready to watch at the touch of a button
 
         st.video("sample.mp4", subtitles={"LLM 1": srt})
 
-with tab5:
+with tab6:
     st.header("Multiple subtitles in either VTT or SRT format (and BytesIO)")
     with st.echo():
         srt = io.BytesIO(
-    """
+            """
 1
 00:00:03,500 --> 00:00:05,000
 Everyone wants the most from life
@@ -88,9 +109,9 @@ Phone conversations where people truly connect
 00:00:14,500 --> 00:00:18,000
 Your favourite TV programmes ready to watch at the touch of a button
 """.strip().encode(
-        "utf-8"
-    )
-)
+                "utf-8"
+            )
+        )
 
         st.video(
             "sample.mp4",
@@ -102,7 +123,7 @@ Your favourite TV programmes ready to watch at the touch of a button
             },
         )
 
-with tab6:
+with tab7:
     st.header("YouTube")
     if st.checkbox("Show YouTube video"):
         with st.echo():
@@ -111,7 +132,7 @@ with tab6:
                 subtitles="sample_english.vtt",
             )
 
-with tab7:
+with tab8:
     st.header("File Uploader")
     uploaded_file = st.file_uploader("Upload a subtitle file", type=["vtt", "srt"])
     st.video("sample.mp4", subtitles=uploaded_file)
