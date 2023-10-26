@@ -125,6 +125,9 @@ Your favourite TV programmes ready to watch at the touch of a button
 
 with tab7:
     st.header("YouTube")
+    st.write(
+        "Checking the checkbox below will raise a `StreamlitAPIException` since YouTube videos do not support subtitles."
+    )
     if st.checkbox("Show YouTube video"):
         with st.echo():
             st.video(
