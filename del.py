@@ -2,10 +2,12 @@ import io
 
 import streamlit as st
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(
     [
         "Single VTT",
+        "Single VTT (with label)",
         "Single SRT",
+        "Single SRT (with label)",
         "Multiple",
         "Single raw string",
         "Single BytesIO",
@@ -21,11 +23,21 @@ with tab1:
         st.video("sample.mp4", subtitles="sample_french.vtt")
 
 with tab2:
+    st.header("One labeled subtitle in VTT format")
+    with st.echo():
+        st.video("sample.mp4", subtitles={"French": "sample_french.vtt"})
+
+with tab3:
     st.header("One subtitle in SRT format")
     with st.echo():
         st.video("sample.mp4", subtitles="sample_english.srt")
 
-with tab3:
+with tab4:
+    st.header("One labeled subtitle in SRT format")
+    with st.echo():
+        st.video("sample.mp4", subtitles={"English": "sample_english.srt"})
+
+with tab5:
     st.header("Multiple subtitles in either VTT or SRT format")
     with st.echo():
         st.video(
@@ -37,7 +49,7 @@ with tab3:
             },
         )
 
-with tab4:
+with tab6:
     st.header("Raw string")
     with st.echo():
         vtt = """
@@ -57,7 +69,7 @@ with tab4:
         """
         st.video("sample.mp4", subtitles=vtt)
 
-with tab5:
+with tab7:
     st.header("One subtitle in SRT format (and BytesIO)")
     with st.echo():
         srt = io.BytesIO(
@@ -88,7 +100,7 @@ Your favourite TV programmes ready to watch at the touch of a button
 
         st.video("sample.mp4", subtitles={"LLM 1": srt})
 
-with tab6:
+with tab8:
     st.header("Multiple subtitles in either VTT or SRT format (and BytesIO)")
     with st.echo():
         srt = io.BytesIO(
@@ -123,7 +135,7 @@ Your favourite TV programmes ready to watch at the touch of a button
             },
         )
 
-with tab7:
+with tab9:
     st.header("YouTube")
     st.write(
         "Checking the checkbox below will raise a `StreamlitAPIException` since YouTube videos do not support subtitles."
@@ -135,7 +147,7 @@ with tab7:
                 subtitles="sample_english.vtt",
             )
 
-with tab8:
+with tab10:
     st.header("File Uploader")
     uploaded_file = st.file_uploader("Upload a subtitle file", type=["vtt", "srt"])
     st.video("sample.mp4", subtitles=uploaded_file)
