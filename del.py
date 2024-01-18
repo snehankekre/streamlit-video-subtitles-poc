@@ -2,6 +2,11 @@ import io
 
 import streamlit as st
 
+st.title("📽️ st.video with subtitle/CC support")
+
+st.markdown("For more information, see the [Subtitle/CC support in st.video](https://www.notion.so/snowflake-corp/Subtitle-CC-support-in-st-video-39bd511be61c49dab094672dcd38c09a) Notion page. Get the wheel file [here](https://github.com/snehankekre/streamlit-video-subtitles-poc/raw/main/streamlit-1.28.0-py2.py3-none-any.whl).")
+st.write("This feature adds argument to `st.video` to accept subtitle files")
+
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(
     [
         "Single VTT",
@@ -11,7 +16,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(
         "Multiple",
         "Single raw string",
         "Single BytesIO",
-        "All supprted formats",
+        "All supported formats",
         "YouTube",
         "File Uploader",
     ]
